@@ -75,6 +75,10 @@ class PeekFileDefinitionProvider implements vscode.DefinitionProvider {
          if((position.character >= match_start) &&
             (position.character <= match_end))
          {
+            // to remove "!text" or other "!" from systemjs plugins so it can find those files too
+            // ex: importing template in var
+            potential_fname = potential_fname.replace(/!\w*/, "");
+
             let full_path   = path.resolve(working_dir, potential_fname);
 
             //console.log(" Match: ", match);
